@@ -34,6 +34,8 @@
   var widgetUrl =
     (currentScript && currentScript.getAttribute("data-widget-url")) ||
     WIDGET_CDN;
+  var widgetCssUrl =
+    (currentScript && currentScript.getAttribute("data-widget-css-url")) || "";
   var apiUrl =
     (currentScript && currentScript.getAttribute("data-api-url")) || "";
 
@@ -71,7 +73,25 @@
     document.head.appendChild(script);
   }
 
+  function loadStylesheet(href) {
+    if (!href) return;
+    if (document.querySelector('link[data-salesbot-widget-style="1"]')) return;
+    var link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.href = href;
+    link.setAttribute("data-salesbot-widget-style", "1");
+    document.head.appendChild(link);
+  }
+
   function init() {
+    // Ensure widget styles are loaded on host page.
+    // Prefer explicit data-widget-css-url; fallback derives .css from widget URL.
+    var cssUrl = widgetCssUrl;
+    if (!cssUrl && /\.js(\?|$)/.test(widgetUrl)) {
+      cssUrl = widgetUrl.replace(/\.js(\?|$)/, ".css$1");
+    }
+    loadStylesheet(cssUrl);
+
     loadScript(
       widgetUrl,
       onWidgetReady,
