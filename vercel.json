@@ -3,8 +3,8 @@
   "cleanUrls": true,
   "rewrites": [
     {
-      "source": "/loader.js",
-      "destination": "https://qa.salesbot.cloud/loader.js"
+      "source": "/chatbot.js",
+      "destination": "https://qa.salesbot.cloud/chatbot.js"
     }
   ]
 }
