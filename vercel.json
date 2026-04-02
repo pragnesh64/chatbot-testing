@@ -1,4 +1,10 @@
 {
   "version": 2,
-  "cleanUrls": true
+  "cleanUrls": true,
+  "rewrites": [
+    {
+      "source": "/loader.js",
+      "destination": "https://qa.salesbot.cloud/loader.js"
+    }
+  ]
 }
