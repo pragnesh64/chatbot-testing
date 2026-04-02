@@ -6,6 +6,7 @@
  *
  * Optional attributes:
  *   data-widget-url  — override chatbot.js CDN URL
+ *   data-widget-css-url — override widget stylesheet URL
  *   data-api-url     — override API base URL
  *
  * The script is intentionally tiny, non-blocking, and conflict-free.
@@ -30,10 +31,25 @@
       return scripts[scripts.length - 1];
     })();
 
+  function getDefaultWidgetUrl() {
+    var src = currentScript && currentScript.getAttribute("src");
+    if (!src) return WIDGET_CDN;
+    try {
+      var parsed = new URL(src, window.location.href);
+      return (parsed.origin + parsed.pathname).replace(/\/loader\.js$/, "/chatbot.js");
+    } catch (e) {
+      var clean = src.split("#")[0].split("?")[0];
+      if (/loader\.js$/.test(clean)) {
+        return clean.replace(/loader\.js$/, "chatbot.js");
+      }
+      return WIDGET_CDN;
+    }
+  }
+
   var botId = currentScript && currentScript.getAttribute("data-bot-id");
   var widgetUrl =
     (currentScript && currentScript.getAttribute("data-widget-url")) ||
-    WIDGET_CDN;
+    getDefaultWidgetUrl();
   var widgetCssUrl =
     (currentScript && currentScript.getAttribute("data-widget-css-url")) || "";
   var apiUrl =
@@ -87,7 +103,9 @@
     // Ensure widget styles are loaded on host page.
     // Prefer explicit data-widget-css-url; fallback derives .css from widget URL.
     var cssUrl = widgetCssUrl;
-    if (!cssUrl && /\.js(\?|$)/.test(widgetUrl)) {
+    if (!cssUrl && /chatbot\.js(\?|$)/.test(widgetUrl)) {
+      cssUrl = widgetUrl.replace(/chatbot\.js(\?|$)/, "style.css$1");
+    } else if (!cssUrl && /\.js(\?|$)/.test(widgetUrl)) {
       cssUrl = widgetUrl.replace(/\.js(\?|$)/, ".css$1");
     }
     loadStylesheet(cssUrl);
