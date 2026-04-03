@@ -1,10 +1,4 @@
 {
   "version": 2,
-  "cleanUrls": true,
-  "rewrites": [
-    {
-      "source": "/chatbot.js",
-      "destination": "https://qa.salesbot.cloud/chatbot.js"
-    }
-  ]
+  "cleanUrls": true
 }

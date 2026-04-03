@@ -5,8 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SalesBot Chatbot Demo Site</title>
     <script
-      src="https://chatbot-testing-five.vercel.app/loader.js?v=5"
+      src="./loader.js?v=7"
+      data-widget-url="./chatbot.js?v=7"
       data-bot-id="BOT_ID_HERE"
+      data-position="right"
       async
     ></script>
     <style>
@@ -34,7 +36,11 @@
       }
 
       body {
-        font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+        font-family:
+          "Segoe UI",
+          system-ui,
+          -apple-system,
+          sans-serif;
         background:
           radial-gradient(circle at 10% -5%, #e8ecff, transparent 35%),
           radial-gradient(circle at 100% 0%, #efe8ff, transparent 30%),
@@ -49,7 +55,12 @@
       }
 
       .hero {
-        background: linear-gradient(135deg, #111827 0%, #1f2937 55%, #312e81 100%);
+        background: linear-gradient(
+          135deg,
+          #111827 0%,
+          #1f2937 55%,
+          #312e81 100%
+        );
         color: #fff;
         border-radius: 24px;
         padding: 34px;
@@ -259,11 +270,14 @@
   <body>
     <main class="page">
       <section class="hero">
-        <span class="hero-tag"><span class="dot"></span> SalesBot Live Demo</span>
+        <span class="hero-tag"
+          ><span class="dot"></span> SalesBot Live Demo</span
+        >
         <h1>Scroll-ready chatbot testing page with rich content</h1>
         <p>
-          This page is intentionally content-heavy so you can test chatbot behavior on long pages, cards,
-          sections, and scroll containers. Update <code>BOT_ID_HERE</code> before production testing.
+          This page is intentionally content-heavy so you can test chatbot
+          behavior on long pages, cards, sections, and scroll containers. Update
+          <code>BOT_ID_HERE</code> before production testing.
         </p>
         <div class="hero-grid">
           <div class="metric">
@@ -289,7 +303,8 @@
         <article class="panel">
           <h2>Website content block</h2>
           <p>
-            Use this section to test visual overlap and fixed bottom-right placement while user reads detailed content.
+            Use this section to test visual overlap and fixed bottom-right
+            placement while user reads detailed content.
           </p>
           <div class="cards">
             <div class="mini-card">
@@ -298,7 +313,9 @@
             </div>
             <div class="mini-card">
               <h4>Lead routing</h4>
-              <p>Collect user details and forward high-intent leads instantly.</p>
+              <p>
+                Collect user details and forward high-intent leads instantly.
+              </p>
             </div>
             <div class="mini-card">
               <h4>Agent handoff</h4>
@@ -306,7 +323,9 @@
             </div>
             <div class="mini-card">
               <h4>Omnichannel</h4>
-              <p>Reuse the same intent model across web and messaging channels.</p>
+              <p>
+                Reuse the same intent model across web and messaging channels.
+              </p>
             </div>
           </div>
           <div class="logs">
@@ -328,10 +347,18 @@
           <p>Quick operational statuses for embed QA.</p>
           <ul class="status-list">
             <li><span>Loader reachable</span><span class="badge">OK</span></li>
-            <li><span>Widget script reachable</span><span class="badge">OK</span></li>
-            <li><span>Stylesheet applied</span><span class="badge">OK</span></li>
-            <li><span>Bottom-right anchor</span><span class="badge">Verify</span></li>
-            <li><span>Lead form submit API</span><span class="badge">Verify</span></li>
+            <li>
+              <span>Widget script reachable</span><span class="badge">OK</span>
+            </li>
+            <li>
+              <span>Stylesheet applied</span><span class="badge">OK</span>
+            </li>
+            <li>
+              <span>Bottom-right anchor</span><span class="badge">Verify</span>
+            </li>
+            <li>
+              <span>Lead form submit API</span><span class="badge">Verify</span>
+            </li>
           </ul>
         </aside>
       </section>
@@ -341,43 +368,51 @@
         <article class="article">
           <h3>Customer story: onboarding reduction</h3>
           <p>
-            Teams using chatbot-assisted onboarding reduced first response time and increased conversion from trial pages.
-            This section exists to create natural scrolling behavior and verify the widget remains fixed and interactive.
+            Teams using chatbot-assisted onboarding reduced first response time
+            and increased conversion from trial pages. This section exists to
+            create natural scrolling behavior and verify the widget remains
+            fixed and interactive.
           </p>
         </article>
         <article class="article">
           <h3>Chatbot prompt strategy</h3>
           <p>
-            Keep greetings short, ask one question at a time, and route high-value intents to forms or agent handoff. This
-            page intentionally includes multiple stacked cards to mimic a content-heavy production layout.
+            Keep greetings short, ask one question at a time, and route
+            high-value intents to forms or agent handoff. This page
+            intentionally includes multiple stacked cards to mimic a
+            content-heavy production layout.
           </p>
         </article>
         <article class="article">
           <h3>Integration checklist</h3>
           <p>
-            Verify script location, correct <code>data-bot-id</code>, optional <code>data-api-url</code>, and no duplicate
-            script tags. Check on desktop, tablet, and mobile.
+            Verify script location, correct <code>data-bot-id</code>, optional
+            <code>data-api-url</code>, and no duplicate script tags. Check on
+            desktop, tablet, and mobile.
           </p>
         </article>
         <article class="article">
           <h3>Performance notes</h3>
           <p>
-            Loader is async and non-blocking. Keep host page CSS clean, avoid global resets that override third-party UI,
-            and use this page to test collisions in real-world content depth.
+            Loader is async and non-blocking. Keep host page CSS clean, avoid
+            global resets that override third-party UI, and use this page to
+            test collisions in real-world content depth.
           </p>
         </article>
         <article class="article">
           <h3>Accessibility baseline</h3>
           <p>
-            Ensure keyboard focus for open/close actions, visible contrast on buttons, and form labels for lead capture.
-            Test with zoom and narrow viewport widths.
+            Ensure keyboard focus for open/close actions, visible contrast on
+            buttons, and form labels for lead capture. Test with zoom and narrow
+            viewport widths.
           </p>
         </article>
         <article class="article">
           <h3>Final QA note</h3>
           <p>
-            Once this page is verified, replace placeholder values and deploy the same script pattern to your production
-            website header/footer integration point.
+            Once this page is verified, replace placeholder values and deploy
+            the same script pattern to your production website header/footer
+            integration point.
           </p>
         </article>
       </section>

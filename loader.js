@@ -6,7 +6,6 @@
  *
  * Optional attributes:
  *   data-widget-url  — override chatbot.js CDN URL
- *   data-widget-css-url — override widget stylesheet URL
  *   data-api-url     — override API base URL
  *
  * The script is intentionally tiny, non-blocking, and conflict-free.
@@ -31,29 +30,27 @@
       return scripts[scripts.length - 1];
     })();
 
-  function getDefaultWidgetUrl() {
-    var src = currentScript && currentScript.getAttribute("src");
-    if (!src) return WIDGET_CDN;
+  var botId = currentScript && currentScript.getAttribute("data-bot-id");
+  var defaultWidgetUrl = (function () {
+    if (!currentScript || !currentScript.src) return WIDGET_CDN;
     try {
-      var parsed = new URL(src, window.location.href);
-      return (parsed.origin + parsed.pathname).replace(/\/loader\.js$/, "/chatbot.js");
-    } catch (e) {
-      var clean = src.split("#")[0].split("?")[0];
-      if (/loader\.js$/.test(clean)) {
-        return clean.replace(/loader\.js$/, "chatbot.js");
-      }
+      // Keep loader and widget on the same host by default (e.g. qa -> qa).
+      return new URL("chatbot.js", currentScript.src).toString();
+    } catch (_) {
       return WIDGET_CDN;
     }
-  }
-
-  var botId = currentScript && currentScript.getAttribute("data-bot-id");
+  })();
   var widgetUrl =
     (currentScript && currentScript.getAttribute("data-widget-url")) ||
-    getDefaultWidgetUrl();
-  var widgetCssUrl =
-    (currentScript && currentScript.getAttribute("data-widget-css-url")) || "";
+    defaultWidgetUrl;
   var apiUrl =
     (currentScript && currentScript.getAttribute("data-api-url")) || "";
+  var requestedPosition =
+    (currentScript && currentScript.getAttribute("data-position")) || "";
+  var widgetPosition =
+    requestedPosition === "left" || requestedPosition === "right"
+      ? requestedPosition
+      : undefined;
 
   if (!botId) {
     console.warn("[SalesBot Loader] data-bot-id attribute is required.");
@@ -71,6 +68,7 @@
     window.SalesBotWidget.init({
       botId: botId,
       apiBaseUrl: apiUrl || undefined,
+      position: widgetPosition,
     });
   }
 
@@ -89,27 +87,7 @@
     document.head.appendChild(script);
   }
 
-  function loadStylesheet(href) {
-    if (!href) return;
-    if (document.querySelector('link[data-salesbot-widget-style="1"]')) return;
-    var link = document.createElement("link");
-    link.rel = "stylesheet";
-    link.href = href;
-    link.setAttribute("data-salesbot-widget-style", "1");
-    document.head.appendChild(link);
-  }
-
   function init() {
-    // Ensure widget styles are loaded on host page.
-    // Prefer explicit data-widget-css-url; fallback derives .css from widget URL.
-    var cssUrl = widgetCssUrl;
-    if (!cssUrl && /chatbot\.js(\?|$)/.test(widgetUrl)) {
-      cssUrl = widgetUrl.replace(/chatbot\.js(\?|$)/, "style.css$1");
-    } else if (!cssUrl && /\.js(\?|$)/.test(widgetUrl)) {
-      cssUrl = widgetUrl.replace(/\.js(\?|$)/, ".css$1");
-    }
-    loadStylesheet(cssUrl);
-
     loadScript(
       widgetUrl,
       onWidgetReady,
